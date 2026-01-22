@@ -1,15 +1,15 @@
-import { useScroll, useTransform, motion } from 'framer-motion';
-import { useRef } from 'react';
-import heroBg from '@/assets/home/hero-img.png';
+import { useScroll, useTransform, motion } from "framer-motion";
+import { useRef } from "react";
+import heroBg from "@/assets/home/hero-img.png";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1.1, 1.3]);
 
@@ -23,7 +23,7 @@ export default function Hero() {
         style={{ y, scale, opacity }}
         className="absolute inset-0 z-0"
       >
-        <div className="absolute inset-0 bg-black/40 z-10" />{' '}
+        <div className="absolute inset-0 bg-black/40 z-10" />{" "}
         {/* Overlay for text readability */}
         <img
           src={heroBg.src}
@@ -45,8 +45,8 @@ export default function Hero() {
 
         <motion.div
           initial={{ height: 0 }}
-          animate={{ height: 'auto' }}
-          transition={{ duration: 1, delay: 0.8, ease: 'easeInOut' }}
+          animate={{ height: "auto" }}
+          transition={{ duration: 1, delay: 0.8, ease: "easeInOut" }}
           className="overflow-hidden"
         >
           <p className="font-tech text-lg md:text-xl text-white/80 uppercase tracking-[0.2em] mt-6 border-t border-white/20 pt-6">

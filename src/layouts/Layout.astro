@@ -4,13 +4,13 @@
  * Implementing meta tags, Open Graph, Twitter Cards, and Schema.org
  */
 
-import SEOHead from '@/components/seo/SEOHead.astro';
+import SEOHead from "@/components/seo/SEOHead.astro";
 
 export interface Props {
   title?: string;
   description?: string;
   image?: string;
-  type?: 'website' | 'article' | 'profile';
+  type?: "website" | "article" | "profile";
   schema?: object;
   noindex?: boolean;
 }

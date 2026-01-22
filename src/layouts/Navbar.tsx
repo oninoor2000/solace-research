@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { cn } from '../lib/utils';
-import { ChevronDown, Globe, Menu, X } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "../lib/utils";
+import { ChevronDown, Globe, Menu, X } from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -11,46 +11,46 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'The Lab', action: 'the-lab' },
-  { label: 'The Work', href: '/work' },
+  { label: "The Lab", action: "the-lab" },
+  { label: "The Work", href: "/work" },
   {
-    label: 'Research',
+    label: "Research",
     children: [
-      { label: 'Methodology', href: '/methodology' },
-      { label: 'Publications', href: '/publications' },
+      { label: "Methodology", href: "/methodology" },
+      { label: "Publications", href: "/publications" },
     ],
   },
-  { label: 'Researchers', href: '/researchers' },
-  { label: 'Contact', action: 'contact' },
+  { label: "Researchers", href: "/researchers" },
+  { label: "Contact", action: "contact" },
 ];
 
 const Navbar = () => {
   const [isScroolled, setIsScroolled] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [lang, setLang] = useState<'ID' | 'EN'>('ID');
+  const [lang, setLang] = useState<"ID" | "EN">("ID");
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScroolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const toggleLang = () => setLang((prev) => (prev === 'EN' ? 'ID' : 'EN'));
+  const toggleLang = () => setLang((prev) => (prev === "EN" ? "ID" : "EN"));
 
   const handleNavClick = (item: NavItem) => {
     if (item.href) {
       window.location.href = item.href;
     } else if (item.action) {
       // Check if we're on the home page
-      if (window.location.pathname === '/') {
+      if (window.location.pathname === "/") {
         const element = document.getElementById(item.action);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }
       } else {
         window.location.href = `/#${item.action}`;
@@ -62,8 +62,8 @@ const Navbar = () => {
     <>
       <motion.header
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-          isScroolled ? 'py-4' : 'py-8'
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          isScroolled ? "py-4" : "py-8"
         )}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -72,10 +72,10 @@ const Navbar = () => {
         <div className="container mx-auto px-6">
           <nav
             className={cn(
-              'flex items-center justify-between rounded-full px-6 py-3 transition-all duration-500',
+              "flex items-center justify-between rounded-full px-6 py-3 transition-all duration-500",
               isScroolled
-                ? 'bg-black/40 backdrop-blur-md border-white/10'
-                : 'bg-transparent border border-transparent'
+                ? "bg-black/40 backdrop-blur-md border-white/10"
+                : "bg-transparent border border-transparent"
             )}
           >
             {/* Logo */}
@@ -101,7 +101,7 @@ const Navbar = () => {
                         <ChevronDown
                           size={14}
                           className={`transition-transform ${
-                            openDropdown === item.label ? 'rotate-180' : ''
+                            openDropdown === item.label ? "rotate-180" : ""
                           }`}
                         />
                       </button>
@@ -166,9 +166,9 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: '-100%' }}
+            initial={{ opacity: 0, y: "-100%" }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '-100%' }}
+            exit={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center gap-6 overflow-y-auto py-24"
           >

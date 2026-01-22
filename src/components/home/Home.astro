@@ -1,8 +1,9 @@
 ---
-import Navbar from '@/layouts/Navbar';
-import Footer from '@/layouts/Footer';
-import Hero from '@/components/home/Hero';
-import TheLab from '@/components/home/TheLab';
+import Navbar from "@/layouts/Navbar";
+import Footer from "@/layouts/Footer";
+import Hero from "@/components/home/Hero";
+import TheLab from "@/components/home/TheLab";
+import ResearcherShowcase from "@/components/home/ResearcherShowcase";
 ---
 
 <div
@@ -19,7 +20,7 @@ import TheLab from '@/components/home/TheLab';
   <main id="main-content">
     <Hero client:load />
     <TheLab client:load />
-    <!-- <ResearcherShowcase client:load /> -->
+    <ResearcherShowcase client:load />
 
     <Footer client:load />
   </main>

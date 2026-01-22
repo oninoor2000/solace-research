@@ -1,45 +1,45 @@
 ---
 // import Home from '@/components/home/Home.astro';
-import Layout from '@/layouts/Layout.astro';
-import Home from '@/components/home/Home.astro';
-import '../styles/global.css';
+import Layout from "@/layouts/Layout.astro";
+import Home from "@/components/home/Home.astro";
+import "../styles/global.css";
 
 // Home page Schema.org structured data
 const homeSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ResearchOrganization',
-  name: 'Solace Lab',
-  alternateName: 'Solace Health Informatics Research Lab',
-  url: 'https://solace.lab',
-  logo: 'https://solace.lab/logo.png',
-  slogan: 'Comfort in Complexity',
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  name: "Solace Lab",
+  alternateName: "Solace Health Informatics Research Lab",
+  url: "https://solace.lab",
+  logo: "https://solace.lab/logo.png",
+  slogan: "Comfort in Complexity",
   description:
-    'Health Informatics Research & Innovation Lab specializing in interoperability, public health systems, and epidemiological analytics in Indonesia.',
-  foundingDate: '2022',
+    "Health Informatics Research & Innovation Lab specializing in interoperability, public health systems, and epidemiological analytics in Indonesia.",
+  foundingDate: "2022",
   address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Yogyakarta',
-    addressRegion: 'DIY',
-    addressCountry: 'ID',
+    "@type": "PostalAddress",
+    addressLocality: "Yogyakarta",
+    addressRegion: "DIY",
+    addressCountry: "ID",
   },
   contactPoint: {
-    '@type': 'ContactPoint',
-    email: 'hello@solace.lab',
-    contactType: 'General Inquiry',
+    "@type": "ContactPoint",
+    email: "hello@solace.lab",
+    contactType: "General Inquiry",
   },
-  areaServed: 'Indonesia',
+  areaServed: "Indonesia",
   knowsAbout: [
-    'Health Informatics',
-    'FHIR Implementation',
-    'HL7 Standards',
-    'Public Health Systems',
-    'Epidemiology',
-    'Data Interoperability',
-    'Healthcare Analytics',
+    "Health Informatics",
+    "FHIR Implementation",
+    "HL7 Standards",
+    "Public Health Systems",
+    "Epidemiology",
+    "Data Interoperability",
+    "Healthcare Analytics",
   ],
   memberOf: {
-    '@type': 'Organization',
-    name: 'Indonesian Health Informatics Association',
+    "@type": "Organization",
+    name: "Indonesian Health Informatics Association",
   },
 };
 ---
