@@ -1,6 +1,7 @@
 ---
 // import Home from '@/components/home/Home.astro';
 import Layout from '@/layouts/Layout.astro';
+import Home from '@/components/home/Home.astro';
 import '../styles/global.css';
 
 // Home page Schema.org structured data
@@ -48,5 +49,5 @@ const homeSchema = {
   description="Solace Lab is Indonesia's leading health informatics research and innovation lab. We specialize in precision health, public informatics, data interoperability, and epidemiological analytics."
   schema={homeSchema}
 >
-  tes
+  <Home />
 </Layout>

@@ -1,0 +1,23 @@
+---
+import Navbar from '@/layouts/Navbar';
+---
+
+<div
+  class="bg-background min-h-screen text-foreground selection:bg-white selection:text-black"
+>
+  {/* Noise Overlay */}
+  <div
+    class="fixed inset-0 pointer-events-none z-100 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat"
+  >
+  </div>
+
+  <Navbar client:load />
+
+  <main id="main-content">
+    <!-- <Hero client:load />
+    <TheLab client:load />
+    <ResearcherShowcase client:load />
+
+    <Footer client:load /> -->
+  </main>
+</div>
