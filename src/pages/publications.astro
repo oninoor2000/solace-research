@@ -1,0 +1,27 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Navbar from "@/layouts/Navbar";
+import Footer from "@/layouts/Footer";
+import PublicationList from "@/components/publications/PublicationList";
+import "@/styles/global.css";
+---
+
+<Layout>
+  <div
+    class="bg-background min-h-screen text-foreground selection:bg-white selection:text-black"
+  >
+    {/* Noise Overlay */}
+    <div
+      class="fixed inset-0 pointer-events-none z-100 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat"
+    >
+    </div>
+
+    <Navbar client:load />
+
+    <main class="pt-24">
+      <PublicationList client:load />
+    </main>
+
+    <Footer client:load />
+  </div>
+</Layout>
