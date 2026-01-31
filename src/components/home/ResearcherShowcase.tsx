@@ -9,6 +9,7 @@ import { ArrowUpRight, Users } from "lucide-react";
 import imgSyeikhooni from "@/assets/home/abstract_geometric_wireframe_structure.png";
 import imgAli from "@/assets/home/abstract_organic_fluid_data_flow.png";
 import imgHadi from "@/assets/home/abstract_data_point_patterns.png";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const researchers = [
   {
@@ -65,6 +66,7 @@ export default function ResearcherShowcase() {
     x: 0,
     y: 0,
   });
+  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -131,57 +133,97 @@ export default function ResearcherShowcase() {
             Principal Researchers
           </h2>
           <p className="font-sans text-white/50 text-lg max-w-2xl mx-auto">
-            Three distinct specializations. One unified mission: 
-            advancing health informatics in Indonesia and beyond.
+            Three distinct specializations. One unified mission: advancing
+            health informatics in Indonesia and beyond.
           </p>
         </motion.div>
 
-        <div className="relative max-w-5xl mx-auto" style={{ height: '720px' }}>
-          {/* Center Hub */}
-          <motion.div
-            style={{ scale }}
-            className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-          >
-            <div className="w-24 h-24 rounded-full border border-white/10 bg-background flex items-center justify-center">
-              <div className="text-center">
-                <Users size={20} className="text-white/30 mx-auto mb-1" />
-                <span className="font-mono text-[9px] uppercase tracking-widest text-white/30">
-                  Team
-                </span>
+        {/* Mobile Layout - Flex Column */}
+        {isMobile ? (
+          <div className="flex flex-col items-center gap-8">
+            {researchers.map((researcher, index) => {
+              const isActive = activeResearcher === researcher.id;
+
+              return (
+                <motion.div
+                  key={researcher.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.15, duration: 0.5 }}
+                  className="w-full max-w-[320px]"
+                >
+                  <ResearcherCard
+                    researcher={researcher}
+                    isActive={isActive}
+                    onHover={() => setActiveResearcher(researcher.id)}
+                    onLeave={() => setActiveResearcher(null)}
+                  />
+                </motion.div>
+              );
+            })}
+          </div>
+        ) : (
+          /* Desktop Layout - Absolute Positioning */
+          <div className="relative max-w-5xl mx-auto" style={{ height: "720px" }}>
+            {/* Center Hub */}
+            <motion.div
+              style={{ scale }}
+              className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+            >
+              <div className="w-24 h-24 rounded-full border border-white/10 bg-background flex items-center justify-center">
+                <div className="text-center">
+                  <Users size={20} className="text-white/30 mx-auto mb-1" />
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-white/30">
+                    Team
+                  </span>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
 
-          {/* Researcher Cards */}
-          {researchers.map((researcher, index) => {
-            const positions = [
-              { top: '0%', left: '50%', transform: 'translate(-50%, 0)' },
-              { top: '58%', left: '3%', transform: 'translate(0, -50%)' },
-              { top: '58%', right: '3%', left: 'auto', transform: 'translate(0, -50%)' },
-            ];
+            {/* Researcher Cards */}
+            {researchers.map((researcher, index) => {
+              const positions = [
+                {
+                  top: "0%",
+                  left: "50%",
+                  transform: "translate(-50%, 0)",
+                },
+                {
+                  top: "58%",
+                  left: "3%",
+                  transform: "translate(0, -50%)",
+                },
+                {
+                  top: "58%",
+                  right: "3%",
+                  left: "auto",
+                  transform: "translate(0, -50%)",
+                },
+              ];
 
-            const pos = positions[index]
-            const isActive = activeResearcher === researcher.id
+              const pos = positions[index];
+              const isActive = activeResearcher === researcher.id;
 
-            return(
-              <motion.div
-                key={researcher.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.15, duration: 0.5 }}
-                style={pos as React.CSSProperties}
-                className="absolute w-full max-w-[280px]"
-              >
-                <ResearcherCard
-                  researcher={researcher}
-                  isActive={isActive}
-                  onHover={() => setActiveResearcher(researcher.id)}
-                  onLeave={() => setActiveResearcher(null)}
-                />
-              </motion.div>
-            )
-          })}
-        </div>
+              return (
+                <motion.div
+                  key={researcher.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.15, duration: 0.5 }}
+                  style={pos as React.CSSProperties}
+                  className="absolute w-full max-w-[280px]"
+                >
+                  <ResearcherCard
+                    researcher={researcher}
+                    isActive={isActive}
+                    onHover={() => setActiveResearcher(researcher.id)}
+                    onLeave={() => setActiveResearcher(null)}
+                  />
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
 
         {/* View All CTA */}
         <motion.div
@@ -202,7 +244,7 @@ export default function ResearcherShowcase() {
           </a>
         </motion.div>
       </div>
-      
+
       {/* Ambient Effect */}
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-20"
@@ -215,7 +257,7 @@ export default function ResearcherShowcase() {
 }
 
 interface ResearcherCardProps {
-  researcher: typeof researchers[0];
+  researcher: (typeof researchers)[0];
   isActive: boolean;
   onHover: () => void;
   onLeave: () => void;
@@ -227,10 +269,15 @@ interface ResearcherCardProps {
  * @param isActive - Whether the card is active
  * @param onHover - Function to handle hover event
  * @param onLeave - Function to handle leave event
- * @returns 
+ * @returns
  */
-function ResearcherCard({ researcher, isActive, onHover, onLeave }: ResearcherCardProps) {
-  return(
+function ResearcherCard({
+  researcher,
+  isActive,
+  onHover,
+  onLeave,
+}: ResearcherCardProps) {
+  return (
     <motion.a
       href={`/researchers/${researcher.slug}`}
       onMouseEnter={onHover}
@@ -261,7 +308,9 @@ function ResearcherCard({ researcher, isActive, onHover, onLeave }: ResearcherCa
           {/* Content */}
           <div className="absolute bottom-0 left-0 right-0 p-5">
             <div className="flex items-center gap-2 mb-2">
-              <span className="font-mono text-white/30 text-[10px]">[{researcher.id}]</span>
+              <span className="font-mono text-white/30 text-[10px]">
+                [{researcher.id}]
+              </span>
               <span className="flex-1 h-px bg-white/15" />
             </div>
 
@@ -290,7 +339,7 @@ function ResearcherCard({ researcher, isActive, onHover, onLeave }: ResearcherCa
                 <p className="font-sans text-white/80 text-sm leading-relaxed text-center mb-6">
                   {researcher.description}
                 </p>
-                
+
                 {/* Expertise Tags */}
                 <div className="flex flex-wrap justify-center gap-2 mb-6">
                   {researcher.expertise.map((exp) => (
@@ -316,12 +365,12 @@ function ResearcherCard({ researcher, isActive, onHover, onLeave }: ResearcherCa
           <span className="font-mono text-[9px] uppercase tracking-widest text-white/30">
             {researcher.role}
           </span>
-          <ArrowUpRight 
-            size={12} 
-            className="text-white/20 group-hover:text-white/60 transition-colors" 
+          <ArrowUpRight
+            size={12}
+            className="text-white/20 group-hover:text-white/60 transition-colors"
           />
         </div>
       </div>
     </motion.a>
-  )
+  );
 }

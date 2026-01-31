@@ -28,6 +28,7 @@ const Navbar = () => {
   const [isScroolled, setIsScroolled] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
   const [lang, setLang] = useState<"ID" | "EN">("ID");
 
   useEffect(() => {
@@ -172,25 +173,57 @@ const Navbar = () => {
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center gap-6 overflow-y-auto py-24"
           >
-            {navItems.map((item) => (
-              <div key={item.label} className="text-center">
+            {navItems.map((item, index) => (
+              <motion.div
+                key={item.label}
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
+              >
                 {item.children ? (
-                  <div className="space-y-4">
-                    <span className="font-display text-3xl text-white/50">
+                  <div className="flex flex-col items-center">
+                    <button
+                      onClick={() =>
+                        setMobileDropdown(
+                          mobileDropdown === item.label ? null : item.label
+                        )
+                      }
+                      className="font-display text-3xl text-white hover:text-white/50 transition-colors bg-transparent border-none cursor-pointer flex items-center gap-2"
+                    >
                       {item.label}
-                    </span>
-                    <div className="flex flex-col gap-2">
-                      {item.children.map((child) => (
-                        <a
-                          key={child.label}
-                          href={child.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="font-tech text-lg text-white hover:text-white/50 transition-colors"
+                      <ChevronDown
+                        size={24}
+                        className={cn(
+                          "transition-transform duration-300",
+                          mobileDropdown === item.label ? "rotate-180" : ""
+                        )}
+                      />
+                    </button>
+                    <AnimatePresence>
+                      {mobileDropdown === item.label && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden"
                         >
-                          {child.label}
-                        </a>
-                      ))}
-                    </div>
+                          <div className="flex flex-col gap-3 pt-4">
+                            {item.children.map((child) => (
+                              <a
+                                key={child.label}
+                                href={child.href}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="font-tech text-lg text-white/70 hover:text-white transition-colors"
+                              >
+                                {child.label}
+                              </a>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 ) : (
                   <button
@@ -203,7 +236,7 @@ const Navbar = () => {
                     {item.label}
                   </button>
                 )}
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         )}
