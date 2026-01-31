@@ -199,12 +199,12 @@ function VerticalProjectRow({
       className="group flex cursor-pointer items-center justify-between border-b border-white/10 py-8 transition-colors hover:border-white/30"
     >
       {/* ID */}
-      <span className="w-16 shrink-0 font-mono text-sm text-white/30 transition-colors group-hover:text-white/60">
+      <span className="hidden w-16 shrink-0 font-mono text-sm text-white/30 transition-colors group-hover:text-white/60 md:block">
         [{project.id}]
       </span>
 
       {/* Title */}
-      <div className="flex-1 px-8">
+      <div className="flex-1 px-2.5 md:px-8">
         <h3 className="font-display text-2xl text-white transition-transform duration-500 group-hover:translate-x-4 md:text-4xl">
           {project.title}
         </h3>
@@ -216,9 +216,12 @@ function VerticalProjectRow({
       </span>
 
       {/* Year + Arrow */}
-      <div className="ml-8 flex items-center gap-6">
-        <span className="font-mono text-sm text-white/40 transition-colors group-hover:text-white/60">
+      <div className="ml-auto flex items-center gap-6 md:ml-8">
+        <span className="hidden font-mono text-sm text-white/40 transition-colors group-hover:text-white/60 md:block">
           {project.year}
+        </span>
+        <span className="font-mono text-sm text-white/40 transition-colors group-hover:text-white/60 md:hidden">
+          ({project.year.toString().slice(-2)})
         </span>
         <motion.div
           className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 transition-all duration-300 group-hover:border-white group-hover:bg-white"
