@@ -584,22 +584,18 @@ export default function TheLab() {
                   <motion.a
                     href="#contact"
                     className="group relative inline-flex items-center justify-center gap-4 bg-white text-black py-5 px-10 font-mono text-xs uppercase tracking-widest overflow-hidden"
-                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span className="relative z-10 flex items-center gap-3">
+                    {/* Sliding background */}
+                    <span className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+
+                    {/* Text content */}
+                    <span className="relative z-10 flex items-center gap-3 group-hover:text-white transition-colors duration-300">
                       <Users size={16} />
-                      Start a Conversation
-                    </span>
-                    <motion.div
-                      className="absolute inset-0 bg-black"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    <span className="absolute inset-0 flex items-center justify-center gap-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                      <Users size={16} />
-                      Start a Conversation
+                      <span className="block md:hidden">Contact Us</span>
+                      <span className="hidden md:block">
+                        Start a Conversation
+                      </span>
                     </span>
                   </motion.a>
 
