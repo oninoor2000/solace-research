@@ -122,7 +122,7 @@ export default function TemplateA({ project }: TemplateAProps) {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="font-tech mb-8 text-5xl font-bold tracking-tight text-white md:text-7xl lg:text-8xl"
+            className="font-tech mx-auto mb-4 text-4xl font-bold leading-tight tracking-tight text-white md:mb-6 md:text-5xl lg:text-6xl xl:text-7xl"
           >
             {project.title}
           </motion.h1>
@@ -141,9 +141,9 @@ export default function TemplateA({ project }: TemplateAProps) {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="perspective-1000 mt-16"
+            className="perspective-1000 mt-8 md:mt-10"
           >
-            <div className="glass-panel relative mx-auto aspect-video w-full max-w-3xl transform overflow-hidden rounded-lg transition-transform duration-700 hover:rotate-x-2 hover:rotate-y-2">
+            <div className="glass-panel relative mx-auto aspect-video w-full max-w-xl transform overflow-hidden rounded-lg transition-transform duration-700 hover:rotate-x-2 hover:rotate-y-2 md:max-w-2xl lg:max-w-3xl">
               <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="font-mono text-sm text-white/20">
