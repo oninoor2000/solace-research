@@ -1,8 +1,12 @@
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
-import heroBg from "@/assets/home/hero-img.png";
+import type { GetImageResult } from "astro";
 
-export default function Hero() {
+interface HeroProps {
+  heroImage: GetImageResult;
+}
+
+export default function Hero({ heroImage }: HeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -26,9 +30,13 @@ export default function Hero() {
         <div className="absolute inset-0 z-10 bg-black/40" />{" "}
         {/* Overlay for text readability */}
         <img
-          src={heroBg.src}
-          alt="Hero"
+          src={heroImage.src}
+          width={heroImage.attributes.width}
+          height={heroImage.attributes.height}
+          alt="Hero background - Solace Research Lab"
           className="h-full w-full object-cover"
+          loading="eager"
+          decoding="async"
         />
       </motion.div>
 

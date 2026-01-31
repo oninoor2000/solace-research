@@ -1,26 +1,47 @@
 ---
+import { getImage } from "astro:assets";
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/layouts/Footer";
 import Hero from "@/components/home/Hero";
 import TheLab from "@/components/home/TheLab";
 import ResearcherShowcase from "@/components/home/ResearcherShowcase";
+
+// Import the source image
+import heroBgSrc from "@/assets/home/hero-img.png";
+import imgSyeikhooni from "@/assets/home/abstract_geometric_wireframe_structure.png";
+import imgAli from "@/assets/home/abstract_organic_fluid_data_flow.png";
+import imgHadi from "@/assets/home/abstract_data_point_patterns.png";
+
+// Generate optimized image at build time
+const optimizedHeroBg = await getImage({
+  src: heroBgSrc,
+  format: "webp", // Convert to WebP (smaller file size)
+  quality: 80, // Quality 1-100 (80 is a good balance)
+  width: 1920, // Max width for hero images
+});
+
+const optimizedImages = await Promise.all([
+  getImage({ src: imgSyeikhooni, format: "webp", quality: 80, width: 280 }),
+  getImage({ src: imgAli, format: "webp", quality: 80, width: 280 }),
+  getImage({ src: imgHadi, format: "webp", quality: 80, width: 280 }),
+]);
 ---
 
 <div
-  class="bg-background min-h-screen text-foreground selection:bg-white selection:text-black"
+  class="bg-background text-foreground min-h-screen selection:bg-white selection:text-black"
 >
   {/* Noise Overlay */}
   <div
-    class="fixed inset-0 pointer-events-none z-100 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat"
+    class="pointer-events-none fixed inset-0 z-100 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat opacity-[0.03] mix-blend-overlay"
   >
   </div>
 
   <Navbar client:load />
 
   <main id="main-content">
-    <Hero client:load />
+    <Hero client:load heroImage={optimizedHeroBg} />
     <TheLab client:load />
-    <ResearcherShowcase client:load />
+    <ResearcherShowcase client:load images={optimizedImages} />
 
     <Footer client:load />
   </main>

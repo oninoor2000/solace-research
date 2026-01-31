@@ -6,10 +6,9 @@ import {
   useTransform,
 } from "framer-motion";
 import { ArrowUpRight, Users } from "lucide-react";
-import imgSyeikhooni from "@/assets/home/abstract_geometric_wireframe_structure.png";
-import imgAli from "@/assets/home/abstract_organic_fluid_data_flow.png";
-import imgHadi from "@/assets/home/abstract_data_point_patterns.png";
+
 import { useIsMobile } from "@/hooks/use-mobile";
+import type { GetImageResult } from "astro";
 
 const researchers = [
   {
@@ -21,7 +20,6 @@ const researchers = [
     role: "Principal Researcher",
     focus: "Health Systems & Interoperability",
     shortFocus: "Systems",
-    image: imgSyeikhooni.src,
     position: "top",
     expertise: ["FHIR/HL7", "System Architecture", "Data Standards"],
     description:
@@ -36,7 +34,6 @@ const researchers = [
     role: "Principal Researcher",
     focus: "Public & Community Health",
     shortFocus: "Community",
-    image: imgAli.src,
     position: "left",
     expertise: ["Primary Care", "Health Equity", "Field Research"],
     description:
@@ -51,7 +48,6 @@ const researchers = [
     role: "Principal Researcher",
     focus: "Epidemiology & Data Analytics",
     shortFocus: "Analytics",
-    image: imgHadi.src,
     position: "right",
     expertise: ["Biostatistics", "ML/AI", "Surveillance"],
     description:
@@ -59,7 +55,13 @@ const researchers = [
   },
 ];
 
-export default function ResearcherShowcase() {
+interface ResearcherShowcaseProps {
+  images: Array<GetImageResult>;
+}
+
+export default function ResearcherShowcase({
+  images,
+}: ResearcherShowcaseProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeResearcher, setActiveResearcher] = useState<string | null>(null);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
@@ -157,6 +159,7 @@ export default function ResearcherShowcase() {
                     isActive={isActive}
                     onHover={() => setActiveResearcher(researcher.id)}
                     onLeave={() => setActiveResearcher(null)}
+                    image={images[index]}
                   />
                 </motion.div>
               );
@@ -221,6 +224,7 @@ export default function ResearcherShowcase() {
                     isActive={isActive}
                     onHover={() => setActiveResearcher(researcher.id)}
                     onLeave={() => setActiveResearcher(null)}
+                    image={images[index]}
                   />
                 </motion.div>
               );
@@ -264,6 +268,7 @@ interface ResearcherCardProps {
   isActive: boolean;
   onHover: () => void;
   onLeave: () => void;
+  image: GetImageResult;
 }
 
 /**
@@ -279,6 +284,7 @@ function ResearcherCard({
   isActive,
   onHover,
   onLeave,
+  image,
 }: ResearcherCardProps) {
   return (
     <motion.a
@@ -300,8 +306,10 @@ function ResearcherCard({
         <div className="relative aspect-4/5 overflow-hidden border border-white/10 bg-white/5 transition-colors duration-500 group-hover:border-white/25">
           {/* Image */}
           <motion.img
-            src={researcher.image}
-            alt={researcher.fullName}
+            src={image.src}
+            alt={image.attributes.alt ?? researcher.fullName}
+            width={image.attributes.width}
+            height={image.attributes.height}
             className="h-full w-full object-cover opacity-50 contrast-110 grayscale transition-all duration-700 group-hover:scale-105 group-hover:opacity-80"
             loading="lazy"
           />
