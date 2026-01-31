@@ -9,13 +9,7 @@ import {
 import { ArrowUpRight } from "lucide-react";
 import { useRef, useState } from "react";
 
-interface VerticalArchiveProps {
-  onProjectClick?: (slug: string) => void;
-}
-
-export default function VerticalArchive({
-  onProjectClick,
-}: VerticalArchiveProps) {
+export default function VerticalArchive() {
   const [hoveredProject, setHoveredProject] = useState<Project | null>(null);
   const [mousePosition, setMousePosition] = useState<Record<string, number>>({
     x: 0,
@@ -97,7 +91,6 @@ export default function VerticalArchive({
               index={index}
               onHover={(p) => setHoveredProject(p)}
               onLeave={() => setHoveredProject(null)}
-              onClick={() => onProjectClick?.(project.slug)}
             />
           ))}
         </div>
@@ -150,7 +143,6 @@ interface VerticalProjectRowProps {
   index: number;
   onHover: (project: Project) => void;
   onLeave: () => void;
-  onClick: () => void;
 }
 
 /**
@@ -159,14 +151,12 @@ interface VerticalProjectRowProps {
  * @param {number} index - The index of the project
  * @param {Function} onHover - The function to call when the mouse enters the project
  * @param {Function} onLeave - The function to call when the mouse leaves the project
- * @param {Function} onClick - The function to call when the project is clicked
  */
 function VerticalProjectRow({
   project,
   index,
   onHover,
   onLeave,
-  onClick,
 }: VerticalProjectRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -192,10 +182,6 @@ function VerticalProjectRow({
       transition={{ delay: index * 0.05, duration: 0.5 }}
       onMouseEnter={() => onHover(project)}
       onMouseLeave={onLeave}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick();
-      }}
       className="group flex cursor-pointer items-center justify-between border-b border-white/10 py-8 transition-colors hover:border-white/30"
     >
       {/* ID */}
