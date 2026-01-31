@@ -90,11 +90,11 @@ export default function ResearcherShowcase() {
       id="researcher"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative py-32 md:py-48 bg-background overflow-hidden"
+      className="bg-background relative overflow-hidden py-32 md:py-48"
     >
       {/* Subtle Connecting Lines */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-50"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-50"
         viewBox="0 0 1000 800"
         preserveAspectRatio="xMidYMid slice"
       >
@@ -118,21 +118,21 @@ export default function ResearcherShowcase() {
           transition={{ duration: 2.5, ease: "easeInOut" }}
         />
       </svg>
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="relative z-10 container mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="mb-20 text-center"
         >
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/40 block mb-4">
+          <span className="mb-4 block font-mono text-xs tracking-[0.3em] text-white/40 uppercase">
             Research Team
           </span>
-          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6">
+          <h2 className="font-display mb-6 text-5xl text-white md:text-6xl lg:text-7xl">
             Principal Researchers
           </h2>
-          <p className="font-sans text-white/50 text-lg max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl font-sans text-lg text-white/50">
             Three distinct specializations. One unified mission: advancing
             health informatics in Indonesia and beyond.
           </p>
@@ -164,16 +164,19 @@ export default function ResearcherShowcase() {
           </div>
         ) : (
           /* Desktop Layout - Absolute Positioning */
-          <div className="relative max-w-5xl mx-auto" style={{ height: "720px" }}>
+          <div
+            className="relative mx-auto max-w-5xl"
+            style={{ height: "720px" }}
+          >
             {/* Center Hub */}
             <motion.div
               style={{ scale }}
-              className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+              className="absolute top-2/3 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
             >
-              <div className="w-24 h-24 rounded-full border border-white/10 bg-background flex items-center justify-center">
+              <div className="bg-background flex h-24 w-24 items-center justify-center rounded-full border border-white/10">
                 <div className="text-center">
-                  <Users size={20} className="text-white/30 mx-auto mb-1" />
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-white/30">
+                  <Users size={20} className="mx-auto mb-1 text-white/30" />
+                  <span className="font-mono text-[9px] tracking-widest text-white/30 uppercase">
                     Team
                   </span>
                 </div>
@@ -230,16 +233,16 @@ export default function ResearcherShowcase() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="text-center mt-12"
+          className="mt-12 text-center"
         >
           <a
             href="/researchers"
-            className="inline-flex items-center gap-3 border border-white/20 px-8 py-4 text-white font-mono text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 group"
+            className="group inline-flex items-center gap-3 border border-white/20 px-8 py-4 font-mono text-sm tracking-widest text-white uppercase transition-all duration-300 hover:bg-white hover:text-black"
           >
             <span>View All Researchers</span>
             <ArrowUpRight
               size={14}
-              className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+              className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
             />
           </a>
         </motion.div>
@@ -247,7 +250,7 @@ export default function ResearcherShowcase() {
 
       {/* Ambient Effect */}
       <div
-        className="absolute inset-0 pointer-events-none z-0 opacity-20"
+        className="pointer-events-none absolute inset-0 z-0 opacity-20"
         style={{
           background: `radial-gradient(circle at ${50 + mousePosition.x * 15}% ${50 + mousePosition.y * 15}%, rgba(255,255,255,0.02) 0%, transparent 50%)`,
         }}
@@ -283,42 +286,43 @@ function ResearcherCard({
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       whileHover={{ scale: 1.02 }}
-      className="block group cursor-pointer"
+      className="group block cursor-pointer"
     >
       <div className="relative">
         {/* Focus Area Badge - Professional Label */}
         <div className="absolute -top-3 -left-2 z-20">
-          <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-white/80 bg-white/10 backdrop-blur-sm border border-white/20 px-3 py-1.5">
+          <span className="border border-white/20 bg-white/10 px-3 py-1.5 font-mono text-[9px] tracking-[0.15em] text-white/80 uppercase backdrop-blur-sm">
             {researcher.shortFocus}
           </span>
         </div>
 
         {/* Image Container */}
-        <div className="relative aspect-4/5 overflow-hidden bg-white/5 border border-white/10 group-hover:border-white/25 transition-colors duration-500">
+        <div className="relative aspect-4/5 overflow-hidden border border-white/10 bg-white/5 transition-colors duration-500 group-hover:border-white/25">
           {/* Image */}
           <motion.img
             src={researcher.image}
             alt={researcher.fullName}
-            className="w-full h-full object-cover grayscale contrast-110 opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
+            className="h-full w-full object-cover opacity-50 contrast-110 grayscale transition-all duration-700 group-hover:scale-105 group-hover:opacity-80"
+            loading="lazy"
           />
 
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-transparent" />
 
           {/* Content */}
-          <div className="absolute bottom-0 left-0 right-0 p-5">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="font-mono text-white/30 text-[10px]">
+          <div className="absolute right-0 bottom-0 left-0 p-5">
+            <div className="mb-2 flex items-center gap-2">
+              <span className="font-mono text-[10px] text-white/30">
                 [{researcher.id}]
               </span>
-              <span className="flex-1 h-px bg-white/15" />
+              <span className="h-px flex-1 bg-white/15" />
             </div>
 
-            <h3 className="font-display text-xl text-white mb-1 group-hover:translate-x-1 transition-transform duration-300">
+            <h3 className="font-display mb-1 text-xl text-white transition-transform duration-300 group-hover:translate-x-1">
               {researcher.name}
             </h3>
 
-            <p className="font-mono text-[9px] uppercase tracking-widest text-white/40 mb-3">
+            <p className="mb-3 font-mono text-[9px] tracking-widest text-white/40 uppercase">
               {researcher.credentials}
             </p>
 
@@ -334,25 +338,25 @@ function ResearcherCard({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/85 backdrop-blur-sm flex flex-col items-center justify-center p-6"
+                className="absolute inset-0 flex flex-col items-center justify-center bg-black/85 p-6 backdrop-blur-sm"
               >
-                <p className="font-sans text-white/80 text-sm leading-relaxed text-center mb-6">
+                <p className="mb-6 text-center font-sans text-sm leading-relaxed text-white/80">
                   {researcher.description}
                 </p>
 
                 {/* Expertise Tags */}
-                <div className="flex flex-wrap justify-center gap-2 mb-6">
+                <div className="mb-6 flex flex-wrap justify-center gap-2">
                   {researcher.expertise.map((exp) => (
                     <span
                       key={exp}
-                      className="text-[9px] uppercase tracking-wider px-2 py-1 bg-white/10 text-white/70"
+                      className="bg-white/10 px-2 py-1 text-[9px] tracking-wider text-white/70 uppercase"
                     >
                       {exp}
                     </span>
                   ))}
                 </div>
 
-                <span className="inline-flex items-center gap-2 text-white font-mono text-[10px] uppercase tracking-widest">
+                <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-widest text-white uppercase">
                   View Profile <ArrowUpRight size={10} />
                 </span>
               </motion.div>
@@ -362,12 +366,12 @@ function ResearcherCard({
 
         {/* Bottom Info */}
         <div className="mt-3 flex items-center justify-between">
-          <span className="font-mono text-[9px] uppercase tracking-widest text-white/30">
+          <span className="font-mono text-[9px] tracking-widest text-white/30 uppercase">
             {researcher.role}
           </span>
           <ArrowUpRight
             size={12}
-            className="text-white/20 group-hover:text-white/60 transition-colors"
+            className="text-white/20 transition-colors group-hover:text-white/60"
           />
         </div>
       </div>
