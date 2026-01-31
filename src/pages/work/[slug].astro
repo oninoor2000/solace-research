@@ -1,0 +1,48 @@
+---
+import { getProjectBySlug, projects } from "@/data/projects";
+import Layout from "@/layouts/Layout.astro";
+import { Footer } from "react-day-picker";
+import WorkTemplateA from "@/components/work/WorkTemplateA";
+
+export function getStaticPaths() {
+  return projects.map((p) => ({
+    params: { slug: p.slug },
+    props: { p },
+  }));
+}
+
+const { slug } = Astro.params;
+const project = getProjectBySlug(slug as string);
+
+if (!project) {
+  return Astro.redirect("/work", 302);
+}
+
+// Determine template based on project category
+const isEngineering = project.category === "engineering";
+---
+
+<Layout>
+  <div
+    class="bg-background text-foreground min-h-screen selection:bg-white selection:text-black"
+  >
+    {/* Noise Overlay */}
+    <div
+      class="pointer-events-none fixed inset-0 z-100 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat opacity-[0.03] mix-blend-overlay"
+    >
+    </div>
+
+    <main>
+      {
+        isEngineering ? (
+          <WorkTemplateA project={project} client:load />
+        ) : (
+          <div>Research Project</div>
+          // <TemplateB project={project} client:load />
+        )
+      }
+    </main>
+
+    <Footer client:load />
+  </div>
+</Layout>
