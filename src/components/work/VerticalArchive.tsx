@@ -3,7 +3,6 @@ import type { Project, ProjectCategory } from "@/types";
 import {
   AnimatePresence,
   motion,
-  MotionConfig,
   useScroll,
   useTransform,
 } from "framer-motion";
