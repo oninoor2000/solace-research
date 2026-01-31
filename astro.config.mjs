@@ -11,7 +11,10 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), partytown()],
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    // Use compile-time image optimization (Sharp runs at build, not runtime)
+    imageService: "compile",
+  }),
 
   vite: {
     plugins: [tailwindcss()],
