@@ -3,6 +3,7 @@ import { getProjectBySlug, projects } from "@/data/projects";
 import Layout from "@/layouts/Layout.astro";
 import { Footer } from "react-day-picker";
 import WorkTemplateA from "@/components/work/WorkTemplateA";
+import WorkTemplateB from "@/components/work/WorkTemplateB";
 
 export function getStaticPaths() {
   return projects.map((p) => ({
@@ -37,8 +38,7 @@ const isEngineering = project.category === "engineering";
         isEngineering ? (
           <WorkTemplateA project={project} client:load />
         ) : (
-          <div>Research Project</div>
-          // <TemplateB project={project} client:load />
+          <WorkTemplateB project={project} client:load />
         )
       }
     </main>
