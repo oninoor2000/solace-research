@@ -32,7 +32,7 @@ export default function TemplateA({ project }: TemplateAProps) {
   return (
     <article className="bg-background text-foreground min-h-screen">
       {/* Grid Background Pattern */}
-      <div className="fixed inset-0 z-0 opacity-[0.03]">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.03]">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern
